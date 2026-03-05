@@ -8,7 +8,7 @@
 
 /* JEU 2D */
 
-.gameZone {
+#gameCanvas {
     width: 800px;
     height: 600px;
     border: solid black 2px;
@@ -26,13 +26,62 @@
     bottom: 0;
 }
 
-.mario {
+/* .mario {
     position: absolute;
     bottom: 100px;
     left: 20px;
     width: 6rem;
     transition: all ease-in-out 0.3s;
-}
+} */
+
+.mario {
+    /* This is the size of the "window" Mario is seen through */
+    width: 98px; 
+    height: 100px; 
+
+    position: absolute;
+    bottom: 100px;
+    left: 20px;
+    width: 6rem;
+    transition: all ease-in-out 0.3s;
+    
+    background-image: url('assets/mario_tuxedo_noBg.png');
+    background-repeat: no-repeat;
+    
+    /* Start at the first frame */
+    background-position: 0px 0px; 
+    
+    /* CRITICAL: This keeps the pixels from getting blurry */
+    image-rendering: pixelated; 
+    
+    /* Center him if his box is larger than his body */
+    display: flex;
+    justify-content: center;
+  }
+  
+  @keyframes walk-cycle {
+    from { 
+      /* Frame 1 */
+      background-position: 0px 0px; 
+    }
+    to { 
+      /* Frame 6 (100px * 6 frames = 600px) 
+         This stops right before the crouch frame */
+      background-position: -600px 0px; 
+    }
+  }
+  
+  .walking {
+    /* steps(6) ensures the background "snaps" 100px at a time 
+       effectively jumping over the blue lines */
+    animation: walk-cycle 0.8s steps(6) infinite;
+  }
+  
+  .crouching {
+    /* The 7th frame is at the 600px mark */
+    background-position: -600px 0px;
+    animation: none;
+  }
 
 
 .jump {
